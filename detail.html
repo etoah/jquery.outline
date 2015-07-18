@@ -1,0 +1,232 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="css/normalize.css">
+
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/article.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+
+<!--[if lt IE 9]>
+<p class="browserupgrade">使用现代浏览器（IE9+），您将有更佳的体验！</p>
+<![endif]-->
+
+<div id="container">
+
+    <div class="col-9">
+
+        <article>
+            <h1 class="title">javascript 数组简明总结</h1>
+
+            <div class="outline"  id="outline">
+
+            </div>
+
+
+            <h3>定义</h3>
+            <pre></pre>
+            var empty=[];<br />
+
+
+            <h3> 何时使用</h3>
+
+            当属性名是小而连续的整数时，使用数据组，否则使用对象。<br />
+
+
+            <h3>识别</h3>
+
+            typeof运算符对数据没有意义，因为返回的是'object'
+            //ECMA5 已添加该方法<br /><br />
+            可以添加<br />
+            <h4>静态方法：</h4>
+
+            Array.isArray=function(obj)<br />
+            {
+            return Object.prototype.toString.apply(obj)==='[object Array]'<br />
+            }
+
+
+            <h3>长度</h3>
+            　　length属性的值是这个数组的最大整数属性名加1：
+
+            array=[];<br />
+            array[7]=0;<br />
+            console.log(array.length);<br />
+
+            设置更大length不会给数组分配更多的空间（undefined），而把length设小将导致所有下标等于新的length的属性被删除。<br />
+
+
+            <h3>添加</h3>
+
+            添加一个元素：<br />
+            empty[empty.length]="";<br />
+            empty.push("");<br />
+
+
+            <h3>删除</h3>
+
+            delete numbers[2]; //留下一个空洞<br />
+            numbers.splice(2,1); //向前移动<br />
+
+
+            <h3>查找</h3>
+
+            //IE9+ 支持<br />
+            array.indexOf()<br />
+            array.lastIndexOf()<br />
+
+
+            <h3>输出</h3>
+
+            alert(array.toString());<br />
+            alert(array.valueOf());<br />
+            alert(array);<br />
+            alert(array.join(','));<br />
+
+
+            <h3>方法</h3>
+
+            <h5>字符串方法：</h5>
+            <h6>哈哈</h6>
+            array.concat() //连接字符串，相当于‘+’<br />
+            array.join() //生成字符串<br />
+
+                <h5>栈方法：</h5>
+            array.push()<br />
+            array.pop()<br />
+
+                    <h5> 队列方法</h5>
+            array.shift()<br />
+            array.unshift()<br />
+
+                        <h5>重排序方法</h5>
+            array.reverse() //反排序<br />
+            array.sort() //字符串排序<br />
+
+                            <h5>操作方法</h5><br />
+            array.slice()<br />
+            array.splice() //相当强大，可实现任意的增删改。<br />
+
+
+            <h3>排序</h3>
+
+            数据原型中有sort的方法（Array.prototype.sort ），但只对字符排序<br />
+
+            复制代码<br />
+            function sortNumber(a, b)<br />
+            {<br />
+            return a - b<br />
+            }<br />
+            var arr = new Array(6)<br />
+            arr[0] = "10"<br />
+            arr[1] = "5"<br />
+            arr[2] = "40"<br />
+            arr[3] = "25"<br />
+            arr[4] = "1000"<br />
+            arr[5] = "1"<br />
+            document.write(arr + "<br/>")
+            //字符排序<br />
+            document.write(arr.sort() + "<br/>") //1,10,1000,25,40,5<br />
+            //数据排序<br />
+            document.write(arr.sort(sortNumber)) //1,5,10,25,40,1000<br />
+            复制代码<br />
+
+
+            <h3>迭代</h3>
+
+            在此只介绍简单用法.//以下只支持ECMA5<br />
+
+            every() //每一个都满足条件返回true<br />
+            filter() //返回满足条件的子数组<br />
+            forEach() //对每一个元素进行操作,不返回<br />
+            map() //对每一个元素进行操作,返回结果数组<br />
+            some()//有一个满足条件返回true<br />
+
+
+            <h3>归并</h3>
+
+            当前后项有关系时实现的操作，方便实现双向链表的功能. //以下只支持ECMA5
+
+            reduce()<br />
+            reduceRight()<br />
+
+
+            <h3>编码规范</h3>
+
+            以下来自GitHub,有很多关于javascript优秀的编程风格，推荐大家看看:https://github.com/airbnb/javascript<br />
+
+
+            Use the literal syntax for array creation.<br />
+
+            // badvar items =newArray();<br />
+
+            // goodvar items = [];<br />
+            Use Array#push instead of direct assignment to add items to an array.<br />
+
+            var someStack = [];<br />
+
+
+            // bad
+            someStack[someStack.length] ='abracadabra';<br />
+
+            // good
+            someStack.push('abracadabra');<br />
+            When you need to copy an array use Array#slice. jsPerf<br />
+
+            var len = items.length;<br />
+            var itemsCopy = [];<br />
+            var i;
+
+            // badfor (i =0; i < len; i++) {<br />
+            itemsCopy[i] = items[i];<br />
+            }<br />
+
+            // good
+            itemsCopy = items.slice();<br />
+            To convert an array-like object to an array, use Array#slice.<br />
+
+            functiontrigger() {<br />
+            var args =Array.prototype.slice.call(arguments);<br />
+            ...
+            }<br />
+
+
+        </article>
+    </div>
+    <aside class="col-3">
+        <h1 class="web-title"><small>让博客变的更简单！</small></h1>
+        <div class="outline" id="sub-outline">
+
+        </div>
+
+
+    </aside>
+
+
+
+</div>
+
+<script src="js/vendor/jquery.js"></script>
+<script src="js/jquery.outline.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
