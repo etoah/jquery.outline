@@ -1,4 +1,12 @@
-# jquery-scrollspy
+
+
+
+
+
+
+---
+#原来的ReadMe
+# jquery.scrollspy
 
 An adaptation of the Mootools Scrollspy ( http://davidwalsh.name/mootools-scrollspy ) plugin for jQuery
 
