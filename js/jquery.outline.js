@@ -247,7 +247,9 @@
 
     if ($('[data-outline]')) {
 
-        $.outline({contentSelector: '[data-outline]', selector: $('[data-outline]').data('outline')});
+        $.outline({
+            contentSelector: '[data-outline]',
+            selector: $('[data-outline]').data('outline')});
 
     }
 
