@@ -5,7 +5,7 @@
  */
 ;
 (function ($, window, document, undefined) {
-
+    "use strict";
     $.fn.extend({
         scrollspy: function (options) {
 
@@ -25,7 +25,8 @@
 
             return this.each(function (i) {
 
-                var element = this;
+                var leaves,
+                    element = this;
                 var o = options;
                 var $container = $(o.container);
                 var mode = o.mode;
@@ -110,9 +111,10 @@
 ;
 (function ($) {
     "use strict";
+    var OUTLINE_ID_PREFIX="outline_";
     function createLink(idSuffix, text) {
         var link = document.createElement('a');
-        link.href = '#outline_' + idSuffix;
+        link.href = '#'+ OUTLINE_ID_PREFIX+ idSuffix;
         link.innerHTML = text;
         return link;
     }
@@ -206,7 +208,7 @@
 
             //先生成outline,再在下一步添加监听
             $(option.selector).find(hSelector).each(function () {
-                var id = 'outline_' + index++;
+                var id =OUTLINE_ID_PREFIX + index++;
                 this.setAttribute('id', id);
             });
 
