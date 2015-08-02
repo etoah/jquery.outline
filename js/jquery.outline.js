@@ -115,7 +115,7 @@
     function createLink(idSuffix, text) {
         var link = document.createElement('a');
         link.href = '#'+ OUTLINE_ID_PREFIX+ idSuffix;
-        link.innerHTML = text;
+        link.innerHTML = text.replace(/<\/?[^>]+>/g,"");//去除html标签
         return link;
     }
 
