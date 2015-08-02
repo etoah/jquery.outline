@@ -1,5 +1,5 @@
 (function($){
-
+    "use strict";
     function createLink(idSuffix,text)
     {
         var link= document.createElement('a');
@@ -18,7 +18,8 @@
     function createOutline(id,elements,hasTitle)
     {
         var i=0;//index of elements
-        var wrapDiv = document.getElementById(id);
+        var content=$(id);
+        var wrapDiv = content[0]||content;
         hasTitle&&createHeader(wrapDiv,elements[i++]);
 
         var ul = document.createElement("ul");
@@ -35,6 +36,7 @@
         }
 
         wrapDiv.appendChild(ul);
+        return wrapDiv;
     }
 
     function createElement(current,element,lastNodeName,index)
@@ -80,9 +82,9 @@
 
     function validate(option)
     {
-        if(!option.id)
+        if(!option.contentSelector)
         {
-             throw new TypeError("id is Required attribute");
+             throw new TypeError("contentSelector is Required attribute");
         }
     }
 
@@ -96,16 +98,44 @@
             var option= $.extend({
                 selector:'body',  //css选择器，选择的范围
                 hArray:['h1','h2','h3','h4','h5','h6'], //要识别的header
-                hasTitle:false //范围内是否第一个是标题
+                addSpy:true,
+                hasTitle:false, //范围内是否第一个是标题
+                offset:20
             },option);
 
             var hSelector=option.hArray.join(',');
             var index=0;
             $(option.selector).find(hSelector).each(function()
             {
-                this.setAttribute('id','outline_'+index++);
+                var id='outline_'+index++;
+                this.setAttribute('id',id);
+
+                if(option.addSpy){
+                    //scrollspy
+                    var $that=$(this);
+                    var position = $that.position();
+                    console.log(this);
+                    $that.scrollspy({
+
+                        min:  $that.offset().top-option.offset,
+                        max: (function () {
+                            var next= $that.nextAll(hSelector)[0];//下一个标题
+
+                            return next?$(next).offset().top:$that.offset().top;
+                        })(),
+                        onEnter: function(element, position) {
+
+
+                            $('[href="#'+element.id+'"]').addClass("active-header");
+                        },
+                        onLeave: function(element, position) {
+                            $('[href="#'+element.id+'"]').removeClass("active-header");
+                        }
+                    });
+                }
             });
-            createOutline(option.id,$(option.selector).find(hSelector),option.hasTitle)
+            createOutline(option.contentSelector,$(option.selector).find(hSelector),option.hasTitle)
+
 
         }
 
@@ -119,6 +149,17 @@
 
 
 
+    /*data API*/
+
+    if($('[data-outline]'))
+    {
+
+        $.outline({contentSelector:'[data-outline]',selector:$('[data-outline]').data('outline')});
+
+    }
+
+
+
 
 
 })(jQuery);/**
@@ -126,4 +167,4 @@
  */
 
 
-$.outline({id:'sub-outline',selector:'article',hasTitle:true});
+//$.outline({contentSelector:'#sub-outline',selector:'article',hasTitle:true});
