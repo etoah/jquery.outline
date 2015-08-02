@@ -216,51 +216,7 @@ article>.title {
 
 
 
-/******************outline************************/
 
-.outline
-{
-    margin: 30px 0;
-    line-height: 1.5;
-
-}
-.outline a
-{
-
-    color: #008E59;
-    font-size: 14px;
-
-}
-
-.outline>ul
-{
-    list-style-type: square;
-}
-.outline>ul>li>ul
-{
-    list-style-type: disc;
-}
-.outline>ul>li>ul>li>ul
-{
-    list-style-type: circle;
-}
-
-
-.active-header {
-    /*position: absolute;*/
-    display: block;
-    left: 0;
-    right: 0;
-    background: #f3f3f3;
-    z-index: 1;
-    border-left: 3px solid #009A61;
-    -moz-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-}
-
-/*******************end of outline ************************/
 
 #sub-outline
 {
